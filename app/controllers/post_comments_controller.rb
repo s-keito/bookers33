@@ -1,15 +1,17 @@
 class PostCommentsController < ApplicationController
 
   def create
-    book = Book.find(params[:book_id])
-    comment = PostComment.new(post_comment_params)
-    comment.user_id = current_user.id
-    comment.book_id = book.id
-    comment.save
+    @book = Book.find(params[:book_id])
+    @comment = PostComment.new(post_comment_params)
+    @comment.user_id = current_user.id
+    @comment.book_id = @book.id
+    @comment.save
   end
 
   def destroy
-    PostComment.find(params[:id]).destroy
+    @book = Book.find(params[:book_id])
+    @comment = PostComment.find(params[:id])
+    @comment.destroy
   end
 
   private

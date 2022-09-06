@@ -21,19 +21,19 @@
           <%= render 'favorites/favorite-btn', book: @book %>
           </td>
           <td>
+          <div class=<%= "comment_form-#{@book.id}-#{@comment.id}" %> >
+            <%= render 'post_comments/form', book: @book, comment: @comment %>
+      　   </div>
           <div>
             <p>コメント件数：<%= @book.post_comments.count %></p>
             <p><% @book.post_comments.each do |post_comment| %>
             <%= post_comment.user.name %>
             <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
             <% if post_comment.user == current_user %>
-            <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete %></p>
+            <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete, remote: true %></p>
             <% end %>
           <% end %>
           </div>
-          <div class=<%= "comment-#{@book.id}" %> >
-            <%= render 'post_comments/comment', book: @book, post_comment: @post_ %>
-      　   </div>
           </td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
